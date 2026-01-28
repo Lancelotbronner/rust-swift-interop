@@ -1,6 +1,6 @@
 #![feature(abi_swift)]
 
-use core::mem::{size_of, offset_of, transmute};
+use core::mem::{align_of, size_of, offset_of, transmute};
 
 unsafe extern "Swift" {
 	#[unsafe(no_mangle)]
@@ -15,7 +15,7 @@ pub extern "Swift" fn helloFromRust(msg: u32) {
 	println!("Rust  RECV {}", msg);
 	let inner = size_of::<Inner>();
 	let params = size_of::<HelloParams>();
-	println!("	Inner {} {} HelloParams {} {}", inner, inner, params, params);
+	println!("	StaticString {} {} {} HelloParams {} {} {}", inner, inner, align_of::<StaticString>(), params, params, align_of::<HelloParams>());
 	println!("	HelloParams {} {} {} {} {} {}", offset_of!(HelloParams, a0), offset_of!(HelloParams, a1), offset_of!(HelloParams, a2), offset_of!(HelloParams, a3), offset_of!(HelloParams, a4), offset_of!(HelloParams, a5));
 	println!("	StaticString {} {} {}", offset_of!(StaticString, start_ptr_or_data), offset_of!(StaticString, utf8_code_unit_count), offset_of!(StaticString, flags));
 }

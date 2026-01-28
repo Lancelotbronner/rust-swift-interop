@@ -8,7 +8,7 @@
 @_silgen_name("helloFromSwift")
 public func helloFromSwift(_ a1: UInt8, _ a2: UInt16, _ a3: UInt32, _ a4: UInt64, _ a5: Int) {
 	print("Swift RECV", a1, a2, a3, a4, a5)
-	print("\tStaticString: \(MemoryLayout<StaticString>.size) \(MemoryLayout<StaticString>.stride) HelloParams: \(MemoryLayout<HelloParams>.size) \(MemoryLayout<HelloParams>.stride)")
+	print("\tStaticString \(MemoryLayout<StaticString>.size) \(MemoryLayout<StaticString>.stride) \(MemoryLayout<StaticString>.alignment) HelloParams \(MemoryLayout<HelloParams>.size) \(MemoryLayout<HelloParams>.stride) \(MemoryLayout<HelloParams>.alignment)")
 	print(
 		"\tHelloParams",
 		MemoryLayout<HelloParams>.offset(of: \.a0) ?? -1,
@@ -17,6 +17,12 @@ public func helloFromSwift(_ a1: UInt8, _ a2: UInt16, _ a3: UInt32, _ a4: UInt64
 		MemoryLayout<HelloParams>.offset(of: \.a3) ?? -1,
 		MemoryLayout<HelloParams>.offset(of: \.a4) ?? -1,
 		MemoryLayout<HelloParams>.offset(of: \.a5) ?? -1,
+	)
+	print(
+		"\tStaticString",
+		MemoryLayout<Inner>.offset(of: \.a0) ?? -1,
+		MemoryLayout<Inner>.offset(of: \.a1) ?? -1,
+		MemoryLayout<Inner>.offset(of: \.a2) ?? -1,
 	)
 	let msg: UInt32 = 42
 	print("Swift SEND \(msg)")
@@ -29,14 +35,14 @@ public func helloFromSwift2(_ params: HelloParams) {
 	let msg: StaticString = "Hello Rust, this is Swift!"
 	print("Swift SEND", msg)
 	print("\t\(unsafeBitCast(msg, to: Inner.self))")
-	helloFromRust2(msg)
+	helloFromRust2(unsafeBitCast(msg, to: Inner.self))
 }
 
 @_silgen_name("helloFromRust")
 public func helloFromRust(_ msg: UInt32)
 
 @_silgen_name("helloFromRust2")
-public func helloFromRust2(_ msg: StaticString)
+public func helloFromRust2(_ msg: Inner)
 
 public struct Inner: CustomStringConvertible {
 	let a0: Int
