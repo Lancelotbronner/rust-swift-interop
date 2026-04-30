@@ -10,8 +10,6 @@ let package = Package(
 	],
 	targets: [
 		.target(name: "SwiftSide"),
-		.executableTarget(name: "swift-side", dependencies: [
-			"SwiftSide",
-		]),
+		.executableTarget(name: "swift-tests"),
 	]
 )

@@ -1,5 +1,7 @@
 #![feature(abi_swift)]
 
+mod tests;
+
 use core::mem::{align_of, size_of, offset_of, transmute};
 
 unsafe extern "Swift" {
