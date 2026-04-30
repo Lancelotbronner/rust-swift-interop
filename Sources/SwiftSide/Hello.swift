@@ -37,6 +37,13 @@ public func helloFromSwift2(_ params: HelloParams) {
 	print("Swift SEND", msg)
 	print("\t\(unsafeBitCast(msg, to: Inner.self))")
 	helloFromRust2(unsafeBitCast(msg, to: Inner.self))
+	var params = params
+	params.a1 *= 10
+	params.a2 += 10000
+	params.a3 &-= 10000
+	params.a4 %= 3
+	params.a5 *= .pi * 1000
+	helloFromRust3(params)
 }
 
 @_silgen_name("helloFromRust")
@@ -45,10 +52,13 @@ public func helloFromRust(_ msg: UInt32)
 @_silgen_name("helloFromRust2")
 public func helloFromRust2(_ msg: Inner)
 
+@_silgen_name("helloFromRust3")
+public func helloFromRust3(_ msg: HelloParams)
+
 public struct Inner: CustomStringConvertible {
-	let a0: Int
-	let a1: Int
-	let a2: Int8
+	var a0: Int
+	var a1: Int
+	var a2: Int8
 
 	public var description: String {
 		"Inner { a0: \(a0), a1: \(a1), a2: \(a2) }"
@@ -56,12 +66,12 @@ public struct Inner: CustomStringConvertible {
 }
 
 public struct HelloParams: CustomStringConvertible {
-	let a0: Inner
-	let a1: UInt8
-	let a2: UInt16
-	let a3: UInt32
-	let a4: UInt64
-	let a5: Float
+	var a0: Inner
+	var a1: UInt8
+	var a2: UInt16
+	var a3: UInt32
+	var a4: UInt64
+	var a5: Float
 
 	public var description: String {
 		"HelloParams { a0: \(a0), a1: \(a1), a2: \(a2), a3: \(a3), a4: \(a4), a5: \(a5) }"

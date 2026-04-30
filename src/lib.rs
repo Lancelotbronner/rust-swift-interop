@@ -28,6 +28,20 @@ pub extern "Swift" fn helloFromRust2(msg: StaticString) {
 	println!("	{:?}", msg);
 }
 
+#[unsafe(no_mangle)]
+#[inline(never)]
+pub extern "Swift" fn helloFromRust3(msg: HelloParams) {
+	println!("Rust  RECV {:?}", msg);
+	println!("	a0.a0 {:?}", &msg.a0.a0);
+	println!("	a0.a1 {:?}", &msg.a0.a1);
+	println!("	a0.a2 {:?}", &msg.a0.a2);
+	println!("	a1 {:?}", &msg.a1);
+	println!("	a2 {:?}", &msg.a2);
+	println!("	a3 {:?}", &msg.a3);
+	println!("	a4 {:?}", &msg.a4);
+	println!("	a5 {:?}", &msg.a5);
+}
+
 #[derive(Copy, Clone, Debug)]
 #[repr(Swift)]
 pub struct Inner {
