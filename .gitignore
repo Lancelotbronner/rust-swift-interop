@@ -8,6 +8,7 @@ DerivedData/
 .netrc
 
 
-# Added by cargo
-
+# Rust
 /target
+rustc-ice*.txt
+*.ll

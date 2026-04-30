@@ -8,6 +8,7 @@
 @_silgen_name("helloFromSwift")
 public func helloFromSwift(_ a1: UInt8, _ a2: UInt16, _ a3: UInt32, _ a4: UInt64, _ a5: Int) {
 	print("Swift RECV", a1, a2, a3, a4, a5)
+	print("Swift LAYOUT:")
 	print("\tStaticString \(MemoryLayout<StaticString>.size) \(MemoryLayout<StaticString>.stride) \(MemoryLayout<StaticString>.alignment) HelloParams \(MemoryLayout<HelloParams>.size) \(MemoryLayout<HelloParams>.stride) \(MemoryLayout<HelloParams>.alignment)")
 	print(
 		"\tHelloParams",

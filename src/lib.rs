@@ -15,15 +15,17 @@ pub extern "Swift" fn helloFromRust(msg: u32) {
 	println!("Rust  RECV {}", msg);
 	let inner = size_of::<Inner>();
 	let params = size_of::<HelloParams>();
+	println!("Rust  LAYOUT:");
 	println!("	StaticString {} {} {} HelloParams {} {} {}", inner, inner, align_of::<StaticString>(), params, params, align_of::<HelloParams>());
 	println!("	HelloParams {} {} {} {} {} {}", offset_of!(HelloParams, a0), offset_of!(HelloParams, a1), offset_of!(HelloParams, a2), offset_of!(HelloParams, a3), offset_of!(HelloParams, a4), offset_of!(HelloParams, a5));
 	println!("	StaticString {} {} {}", offset_of!(StaticString, start_ptr_or_data), offset_of!(StaticString, utf8_code_unit_count), offset_of!(StaticString, flags));
 }
 
 #[unsafe(no_mangle)]
+#[inline(never)]
 pub extern "Swift" fn helloFromRust2(msg: StaticString) {
-	println!("Rust  RECV {:?}", msg);
-	println!("	{}", msg.as_str());
+	println!("Rust  RECV {:?}", msg.as_str());
+	println!("	{:?}", msg);
 }
 
 #[derive(Copy, Clone, Debug)]
