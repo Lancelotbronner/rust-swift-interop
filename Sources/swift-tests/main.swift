@@ -33,3 +33,12 @@ var new_x = Foo(
 swap(&bar.x, &new_x)
 print(bar)
 assert(bar == Bar(x: Foo(a: .max, b: .max), y: (1, 2, 3, 4, 5, 6, 7)))
+
+print("\n[ Size / Stride Tests ]")
+
+typealias FooTuple = (Foo, Foo)
+typealias FooArray = [2 of Foo]
+
+print("Foo", MemoryLayout<Foo>.size, MemoryLayout<Foo>.stride)
+print("(Foo, Foo)", MemoryLayout<FooTuple>.size, MemoryLayout<FooTuple>.stride)
+print("[2 of Foo]", MemoryLayout<FooArray>.size, MemoryLayout<FooArray>.stride)

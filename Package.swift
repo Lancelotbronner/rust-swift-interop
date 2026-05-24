@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
 	name: "rust-interop",
+	platforms: [
+		.macOS(.v26),
+	],
 	products: [
 		.library(name: "SwiftSide", type: .static, targets: ["SwiftSide"]),
 	],
